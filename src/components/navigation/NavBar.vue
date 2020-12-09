@@ -9,12 +9,12 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Log in
+        <router-link exact to="/" class="nav-link">Log in
           <span class="sr-only">(current)</span>
-        </a>
+        </router-link>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Dashboard</a>
+        <router-link exact to="/dashboard" class="nav-link">Dashboard</router-link>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto nav-flex-icons">

@@ -12,6 +12,11 @@
           <p>{{ user.email }}</p>
           <p>{{ user.role }}</p>
       </div>
+      <div class="fixed-action-btn smooth-scroll position-absolute" style="bottom: 45px; right: 24px;">
+        <router-link to="add" exact class="btn-floating btn-large red">
+        <i class="fas fa-user-plus"></i>
+        </router-link>
+      </div>
   </div>
 </template>
 
@@ -20,17 +25,9 @@ import {mapGetters} from 'vuex';
 export default {
     created(){
         this.$store.dispatch('fetchUsers');
-        // usersCollection.get().then(query => {
-        //     query.forEach(doc => {
-        //         this.users.push(doc.data());
-        //         const {name = name, email = email} = doc.data();
-        //         console.log(doc.id + '=>' + name + ' ' + email);
-        //     })
-        // })
     },
     data() {
         return {
-            // users: []
         }
     },
     computed: {
