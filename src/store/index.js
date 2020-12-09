@@ -19,6 +19,9 @@ export default new Vuex.Store({
     },
     SET_IS_USERS_LOADED: (state, payload) => {
       state.isUsersLoaded = payload
+    },
+    ADD_USER: (state, user) => {
+      state.users.push(user)
     }
   },
   actions: {
@@ -31,6 +34,17 @@ export default new Vuex.Store({
       })
       commit('SET_USERS', [...users])
       commit('SET_IS_USERS_LOADED', true)
+    },
+    addUser: async ({commit}, user) => {
+      try{
+        const doc = await usersCollection.add(user)
+        user.id = doc.id
+        commit('ADD_USER', user)
+        return user
+      } catch(err){
+        console.error(err.message)
+        throw new Error(err.message)
+      }
     }
   },
   modules: {
