@@ -13,21 +13,25 @@
 </template>
 
 <script>
-import {usersCollection} from '../firebase';
+// import {usersCollection} from '../firebase';
 export default {
     created(){
-        usersCollection.get().then(query => {
-            query.forEach(doc => {
-                this.users.push(doc.data());
-                const {name = name, email = email} = doc.data();
-                console.log(doc.id + '=>' + name + ' ' + email);
-            })
-        })
+        this.$store.dispatch('fetchUsers');
+        // usersCollection.get().then(query => {
+        //     query.forEach(doc => {
+        //         this.users.push(doc.data());
+        //         const {name = name, email = email} = doc.data();
+        //         console.log(doc.id + '=>' + name + ' ' + email);
+        //     })
+        // })
     },
     data() {
         return {
-            users: []
+            // users: []
         }
+    },
+    computed: {
+        
     }
 }
 </script>
