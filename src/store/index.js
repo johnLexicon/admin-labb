@@ -10,7 +10,8 @@ export default new Vuex.Store({
     isUsersLoaded: false
   },
   getters: {
-    isUsersLoaded: state => state.isUsersLoaded
+    isUsersLoaded: state => state.isUsersLoaded,
+    users: state => state.users
   },
   mutations: {
     SET_USERS: (state, users) => {
@@ -21,15 +22,14 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    fetchUsers: ({commit}) => {
+    fetchUsers: async ({commit}) => {
       commit('SET_IS_USERS_LOADED', false)
+      const querySnapshot = await usersCollection.get()
       const users = []
-      usersCollection.get().then(query => {
-        query.forEach(doc => {
-            this.users.push(doc.data())
-        })
+      querySnapshot.forEach(doc => {
+        users.push(doc.data())  
       })
-      commit('SET_USERS', users)
+      commit('SET_USERS', [...users])
       commit('SET_IS_USERS_LOADED', true)
     }
   },

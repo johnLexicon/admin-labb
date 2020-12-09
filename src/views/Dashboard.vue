@@ -3,7 +3,10 @@
       <h1>
           Dashboard
       </h1>
-      <div v-for="user in users" :key="user.id">
+      <div v-if="!isUsersLoaded">
+          <p>Retrieving users...</p>
+      </div>
+      <div v-else v-for="user in users" :key="user.id">
           <h2>User</h2>
           <p>{{ user.name }}</p>
           <p>{{ user.email }}</p>
@@ -13,7 +16,7 @@
 </template>
 
 <script>
-// import {usersCollection} from '../firebase';
+import {mapGetters} from 'vuex';
 export default {
     created(){
         this.$store.dispatch('fetchUsers');
@@ -31,7 +34,7 @@ export default {
         }
     },
     computed: {
-        
+        ...mapGetters(['isUsersLoaded', 'users'])
     }
 }
 </script>
