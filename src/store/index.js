@@ -8,11 +8,17 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     users: [],
-    isUsersLoaded: false
+    isUsersLoaded: false,
+    admin: {
+      email: 'someone@email.com',
+      password: 'secret',
+      loggedIn: false
+    }
   },
   getters: {
     isUsersLoaded: state => state.isUsersLoaded,
-    users: state => state.users
+    users: state => state.users,
+    admin: state => state.admin
   },
   mutations: {
     SET_USERS: (state, users) => {
@@ -26,6 +32,9 @@ export default new Vuex.Store({
     },
     REMOVE_USER: (state, userId) => {
       state.users = state.users.filter(user => user.id !== userId)
+    },
+    SET_ADMIN: (state, admin) => {
+      state.admin = admin
     }
   },
   actions: {
@@ -58,6 +67,9 @@ export default new Vuex.Store({
         console.error(err.message)
         throw new Error(err.message)
       }
+    },
+    setAdmin: ({commit}, admin) => {
+      commit('SET_ADMIN', admin)
     }
   },
   modules: {
