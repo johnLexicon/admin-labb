@@ -40,7 +40,7 @@ export default new Vuex.Store({
         const doc = await usersCollection.add(user)
         user.id = doc.id
         commit('ADD_USER', user)
-        return user
+        return doc.id
       } catch(err){
         console.error(err.message)
         throw new Error(err.message)
