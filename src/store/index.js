@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {usersCollection} from '../firebase';
@@ -30,7 +31,8 @@ export default new Vuex.Store({
       const querySnapshot = await usersCollection.get()
       const users = []
       querySnapshot.forEach(doc => {
-        users.push(doc.data())  
+        let user = {...doc.data(), id: doc.id}
+        users.push(user)  
       })
       commit('SET_USERS', [...users])
       commit('SET_IS_USERS_LOADED', true)
@@ -38,10 +40,17 @@ export default new Vuex.Store({
     addUser: async ({commit}, user) => {
       try{
         const doc = await usersCollection.add(user)
-        user.id = doc.id
-        commit('ADD_USER', user)
         return doc.id
       } catch(err){
+        console.error(err.message)
+        throw new Error(err)
+      }
+    },
+    removeUser: async ({commit}, userId) => {
+      try{
+        const doc = await usersCollection.doc(userId).delete()
+        return doc
+      }catch(err){
         console.error(err.message)
         throw new Error(err.message)
       }
