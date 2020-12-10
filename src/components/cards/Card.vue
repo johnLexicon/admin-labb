@@ -14,8 +14,7 @@ export default {
   methods: {
       async remove(userId){
           try{
-            await this.$store.dispatch('removeUser', userId)
-            this.$store.dispatch('fetchUsers')
+            this.$store.dispatch('removeUser', userId)
           }catch(err){
               alert(err.message)
           }

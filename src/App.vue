@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavBar />
-    <div class="container">
+    <div class="container mt-5">
       <router-view/>
     </div>
   </div>
@@ -13,6 +13,9 @@ export default {
   name: 'App',
   components: {
     NavBar
+  },
+  created(){
+    this.$store.dispatch('fetchUsers')
   }
 }
 </script>

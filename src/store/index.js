@@ -23,6 +23,9 @@ export default new Vuex.Store({
     },
     ADD_USER: (state, user) => {
       state.users.push(user)
+    },
+    REMOVE_USER: (state, userId) => {
+      state.users = state.users.filter(user => user.id !== userId)
     }
   },
   actions: {
@@ -40,6 +43,7 @@ export default new Vuex.Store({
     addUser: async ({commit}, user) => {
       try{
         const doc = await usersCollection.add(user)
+        commit('ADD_USER', {...user, id: doc.id})
         return doc.id
       } catch(err){
         console.error(err.message)
@@ -48,8 +52,8 @@ export default new Vuex.Store({
     },
     removeUser: async ({commit}, userId) => {
       try{
-        const doc = await usersCollection.doc(userId).delete()
-        return doc
+        await usersCollection.doc(userId).delete()
+        commit('REMOVE_USER', userId)
       }catch(err){
         console.error(err.message)
         throw new Error(err.message)
