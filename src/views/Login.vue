@@ -40,7 +40,7 @@ export default {
         login(){
             if(this.admin.email === this.email && this.admin.password === this.password){
                 this.admin = {...this.admin, loggedIn: true}
-                this.$router.push('/dashboard')
+                this.$router.push('/users')
             } else {
                 alert('Wrong credentials')
             }
