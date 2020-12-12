@@ -15,18 +15,24 @@
     <button class="btn orange btn-block" type="submit">Add</button>
 
 </form>
-    <div v-if="successMessage" class="alert alert-success fade" role="alert">
-        {{ successMessage }}
-    </div>
-        <div v-if="errorMessage" class="alert alert-danger fade" role="alert">
-        {{ successMessage }}
-    </div>
+        <alert v-if="successMessage">
+            {{ successMessage }}
+        </alert>
+        <alert-error v-if="errorMessage">
+            {{ errorMessage }}
+        </alert-error>
   </div>
 </template>
 
 <script>
+import Alert from '@/components/alerts/Alert';
+import AlertError from '@/components/alerts/AlertError';
 export default {
     name: 'AddUser',
+    components: {
+        Alert,
+        AlertError
+    },
     data() {
         return {
             successMessage: '',
@@ -44,7 +50,7 @@ export default {
                 this.successMessage = `Added user with id: ${userId}`
                 this.showSuccess = true
                 this.user = {name: '', email: ''}
-                this.hideSuccessMessage(this.successMessage)
+                this.hideSuccessMessage()
             }catch(err){
                 this.errorMessage = err.message
                 this.hideErrorMessage()
